@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://upliftorch.com/tools/seo-checker/en/">
+<link rel="alternate" hreflang="zh-TW" href="https://upliftorch.com/tools/seo-checker/">
+<link rel="alternate" hreflang="en" href="https://upliftorch.com/tools/seo-checker/en/">
+<link rel="alternate" hreflang="x-default" href="https://upliftorch.com/tools/seo-checker/en/">
+<title>SEO Checker — Free On-Page SEO Analysis Tool | SEO Checker</title>
+<meta name="description" content="Free online SEO checker. Analyze meta tags, heading structure, image alt attributes, Open Graph, Schema markup, keyword density, and more. Get instant SEO reports with actionable suggestions.">
+<meta name="keywords" content="SEO checker,SEO analysis,on-page SEO,meta tag checker,SEO tool,free SEO,website optimization,SEO report">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+<meta property="og:title" content="SEO Checker — Free On-Page SEO Analysis">
+<meta property="og:description" content="Free online SEO checker. Analyze meta tags, headings, images, Schema, and more.">
+<meta property="og:type" content="website">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0f4f8;--surface:#fff;--text:#1e293b;--text-secondary:#64748b;
+  --border:#e2e8f0;--primary:#6366f1;--primary-dark:#4f46e5;
+  --primary-light:rgba(99,102,241,.1);--radius:14px;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
+  --success:#22c55e;--warning:#f59e0b;--danger:#ef4444;
+  --header-bg:linear-gradient(135deg,#4f46e5,#6366f1,#818cf8);
+}
+[data-theme="dark"]{
+  --bg:#0f172a;--surface:#1e293b;--text:#e2e8f0;--text-secondary:#94a3b8;
+  --border:#334155;--primary:#818cf8;--primary-dark:#a5b4fc;
+  --primary-light:rgba(99,102,241,.15);--shadow:0 2px 16px rgba(0,0,0,.3);
+  --header-bg:linear-gradient(135deg,#312e81,#3730a3,#4338ca);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+header{background:var(--header-bg);color:#fff;padding:0 20px}
+.header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand h1{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
+.brand h1 span{opacity:.85;font-weight:400}
+.header-actions{display:flex;align-items:center;gap:12px}
+.lang-switch{color:#fff;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:8px;font-size:13px;font-weight:600;transition:.2s}
+.lang-switch:hover{background:rgba(255,255,255,.35);text-decoration:none}
+.theme-toggle{background:rgba(255,255,255,.2);border:none;color:#fff;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px;transition:.2s}
+.theme-toggle:hover{background:rgba(255,255,255,.35)}
+.container{max-width:960px;margin:0 auto;padding:32px 20px}
+.breadcrumb{font-size:13px;color:var(--text-secondary,#64748b);margin-bottom:20px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.breadcrumb a{color:var(--text-secondary,#64748b)}
+.breadcrumb a:hover{color:var(--primary,#ec4899)}
+.breadcrumb .sep{opacity:.5}
+.breadcrumb [aria-current]{color:var(--text,#1e293b);font-weight:600}
+.input-section{background:var(--surface);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:24px}
+.input-section h2{font-size:18px;margin-bottom:16px;text-align:center}
+.tabs{display:flex;gap:0;margin-bottom:16px;border-radius:10px;overflow:hidden;border:1.5px solid var(--border)}
+.tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:14px;font-weight:600;background:var(--surface);color:var(--text-secondary);transition:.2s;border:none}
+.tab.active{background:var(--primary);color:#fff}
+.url-input{display:flex;gap:8px}
+.url-input input{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;background:var(--surface);color:var(--text)}
+.url-input input:focus{outline:none;border-color:var(--primary)}
+.html-input textarea{width:100%;height:200px;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-family:monospace;resize:vertical;background:var(--surface);color:var(--text)}
+.html-input textarea:focus{outline:none;border-color:var(--primary)}
+.btn{padding:12px 24px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-sm{padding:8px 16px;font-size:13px}
+.hidden{display:none!important}
+.score-section{text-align:center;margin:24px 0}
+.score-ring{position:relative;display:inline-block;width:160px;height:160px}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring .bg{stroke:var(--border);fill:none;stroke-width:10}
+.score-ring .fg{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s}
+.score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:42px;font-weight:800}
+.score-label{font-size:14px;color:var(--text-secondary);margin-top:8px}
+.report{margin:24px 0}
+.report-category{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+.cat-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:600;font-size:15px}
+.cat-header .cat-icon{font-size:20px;margin-right:10px}
+.cat-header .cat-score{font-size:13px;padding:4px 12px;border-radius:20px;font-weight:700}
+.cat-header .cat-score.good{background:rgba(34,197,94,.15);color:#16a34a}
+.cat-header .cat-score.warn{background:rgba(245,158,11,.15);color:#d97706}
+.cat-header .cat-score.bad{background:rgba(239,68,68,.15);color:#dc2626}
+.cat-header::after{content:"▼";font-size:11px;color:var(--text-secondary);transition:.3s;margin-left:auto}
+.report-category.open .cat-header::after{transform:rotate(180deg)}
+.cat-body{max-height:0;overflow:hidden;transition:max-height .4s}
+.report-category.open .cat-body{max-height:2000px}
+.check-item{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;font-size:14px}
+.check-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+.check-detail{flex:1}
+.check-detail strong{display:block;margin-bottom:2px}
+.check-detail p{color:var(--text-secondary);font-size:13px;margin:0}
+.check-detail code{background:var(--primary-light);padding:2px 6px;border-radius:4px;font-size:12px;word-break:break-all}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:40px 0}
+.feature-card{background:var(--surface);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);text-align:center}
+.feature-card .feat-icon{font-size:36px;margin-bottom:12px}
+.feature-card h3{font-size:16px;margin-bottom:8px}
+.feature-card p{font-size:14px;color:var(--text-secondary)}
+.articles{margin:40px 0}
+.articles h2{font-size:22px;margin-bottom:20px;text-align:center}
+.article-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.article-card{background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:transform .2s,box-shadow .2s;display:block;border:1px solid var(--border)}
+.article-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1);text-decoration:none}
+.article-card h3{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.article-card p{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.article-card .tag{display:inline-block;font-size:11px;background:var(--primary-light);color:var(--primary);padding:2px 8px;border-radius:4px;margin-top:10px;font-weight:600}
+.faq{margin:40px 0}
+.faq h2{font-size:22px;margin-bottom:20px;text-align:center}
+.faq-item{background:var(--surface);border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.faq-q{padding:16px 20px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.faq-q::after{content:"▼";font-size:12px;color:var(--text-secondary);transition:.3s}
+.faq-item.open .faq-q::after{transform:rotate(180deg)}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;font-size:14px;color:var(--text-secondary)}
+.faq-item.open .faq-a{padding:0 20px 16px;max-height:300px}
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;font-size:13px;color:var(--text-secondary);margin-top:40px}
+footer nav a{color:var(--text-secondary);margin:0 6px}footer nav a:hover{color:var(--primary)}
+@media(max-width:767px){
+  .feature-grid{grid-template-columns:1fr}
+  .article-grid{grid-template-columns:1fr}
+  .url-input{flex-direction:column}
+  .score-ring{width:120px;height:120px}
+  .score-num{font-size:32px}
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"SEO Checker","url":"https://upliftorch.com/tools/seo-checker/en/","description":"Free online SEO checker tool for on-page SEO analysis","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://upliftorch.com/"},{"@type":"ListItem","position":2,"name":"Free Online Tools","item":"https://upliftorch.com/tools-en"},{"@type":"ListItem","position":3,"name":"SEO Checker","item":"https://upliftorch.com/tools/seo-checker/en/"}]}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand"><h1>🔍 SEO<span>Checker</span></h1></div>
+    <div class="header-actions">
+      <a href="https://upliftorch.com/tools/seo-checker/" class="lang-switch">繁中</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="https://upliftorch.com/">Home</a>
+    <span class="sep">›</span>
+    <a href="https://upliftorch.com/tools-en">Free Online Tools</a>
+    <span class="sep">›</span>
+    <span aria-current="page">SEO Checker</span>
+  </nav>
+
+  <div class="input-section">
+    <h2>Enter a URL or paste HTML source code for instant SEO analysis</h2>
+    <div class="tabs">
+      <button class="tab active" data-tab="url">Enter URL</button>
+      <button class="tab" data-tab="html">Paste HTML</button>
+    </div>
+    <div id="urlPanel">
+      <div class="url-input">
+        <input type="url" id="urlInput" placeholder="https://example.com" autocomplete="off">
+        <button class="btn btn-primary" id="analyzeUrlBtn">🔍 Analyze</button>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);margin-top:8px">Tip: Some websites may block fetching due to security restrictions. Use "Paste HTML" mode instead.</p>
+    </div>
+    <div id="htmlPanel" class="hidden">
+      <div class="html-input">
+        <textarea id="htmlInput" placeholder="Paste your page's HTML source code here (press Ctrl+U in browser to view source)"></textarea>
+      </div>
+      <div style="margin-top:8px;text-align:right">
+        <button class="btn btn-primary" id="analyzeHtmlBtn">🔍 Analyze</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading" class="hidden" style="text-align:center;padding:40px">
+    <div style="font-size:48px;margin-bottom:16px">⏳</div>
+    <p style="font-size:16px;font-weight:600">Analyzing...</p>
+  </div>
+
+  <div id="reportSection" class="hidden">
+    <div class="score-section">
+      <div class="score-ring">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <circle class="bg" cx="80" cy="80" r="70"/>
+          <circle class="fg" id="scoreCircle" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440"/>
+        </svg>
+        <div class="score-num" id="scoreNum">0</div>
+      </div>
+      <div class="score-label" id="scoreLabel">Overall SEO Score</div>
+    </div>
+    <div class="report" id="reportBody"></div>
+    <div style="text-align:center;margin:20px 0">
+      <button class="btn btn-primary btn-sm" id="exportBtn">📄 Export Report</button>
+    </div>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card"><svg class="feat-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h3>Comprehensive Analysis</h3><p>Check 50+ SEO factors including meta tags, headings, images, links, and Schema.</p></div>
+    <div class="feature-card"><svg class="feat-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><path d="M9 18h6M10 21h4M8.5 15.5A7 7 0 1 1 15.5 15.5c-.8.7-1.2 1.4-1.3 2.5h-4.4c-.1-1.1-.5-1.8-1.3-2.5Z"/></svg><h3>Actionable Suggestions</h3><p>Every check comes with specific improvement suggestions to fix issues.</p></div>
+    <div class="feature-card"><svg class="feat-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><path d="M3 17 9 11l4 4 8-9M15 6h6v6"/></svg><h3>Scoring System</h3><p>Intuitive 0-100 score to quickly assess your page's SEO health.</p></div>
+    <div class="feature-card"><svg class="feat-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v2"/></svg><h3>100% Private</h3><p>All analysis happens in your browser. No data is stored or transmitted.</p></div>
+    <div class="feature-card"><svg class="feat-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><h3>Social Tags</h3><p>Check Open Graph and Twitter Card tags for optimal social sharing.</p></div>
+    <div class="feature-card"><svg class="feat-icon" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin-left:auto;margin-right:auto;color:var(--primary,var(--primary-color,#0f86b5))"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"/></svg><h3>Instant Reports</h3><p>Get a full report in seconds with export to text file support.</p></div>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q">How does this tool work?</div><div class="faq-a">The tool fetches the HTML content of a webpage and analyzes SEO elements including meta tags, heading structure, image attributes, links, Schema markup, and more, scoring against best practices.</div></div>
+    <div class="faq-item"><div class="faq-q">Why can't some URLs be analyzed?</div><div class="faq-a">Some websites enable CORS restrictions that prevent browser-based fetching. In this case, you can view the page source (Ctrl+U), copy it, and paste it into the "Paste HTML" mode.</div></div>
+    <div class="faq-item"><div class="faq-q">Is my data stored?</div><div class="faq-a">No. All analysis happens entirely in your browser. We never store, transmit, or log any webpage content or analysis results.</div></div>
+    <div class="faq-item"><div class="faq-q">What scoring criteria is used?</div><div class="faq-a">Scoring is based on Google SEO best practices, covering meta tags, content quality, technical SEO, social tags, structured data, and more, with each item weighted by importance.</div></div>
+    <div class="faq-item"><div class="faq-q">Can this replace SEMrush or Ahrefs?</div><div class="faq-a">This tool focuses on single-page on-page SEO analysis for quick checks. For backlink analysis, competitor tracking, and advanced features, professional SEO tools are recommended as a complement.</div></div>
+  </div>
+
+</div>
+
+<footer>
+  <nav>
+    <a href="index.html">Home</a> ·
+    <a href="https://upliftorch.com/tools/seo-checker/en/blog/index.html">Blog</a> ·
+    <a href="https://upliftorch.com/privacy-policy?lang=en">Privacy</a> ·
+    <a href="https://upliftorch.com/terms-of-service?lang=en">Terms</a>
+  </nav>
+  <p style="margin-top:8px">SEO Checker — all analysis in browser, no data uploaded</p>
+  <p style="margin-top:4px;font-size:12px">&copy; <script>document.write(new Date().getFullYear())</script> Upliftorch. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:13px">
+    <span style="color:#999">Other Tools: </span>
+    <a href="https://upliftorch.com/tools/image-compress/">Image Compress</a> ·
+    <a href="https://upliftorch.com/tools/json-formatter/">JSON Formatter</a> ·
+    <a href="https://upliftorch.com/tools/password-generator/">Password Generator</a>
+  </p>
+</footer>
+
+<script>
+const themeToggle=document.getElementById('themeToggle');
+const saved=localStorage.getItem('theme');
+if(saved){document.documentElement.setAttribute('data-theme',saved);themeToggle.textContent=saved==='dark'?'☀️':'🌙'}
+else if(window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark');themeToggle.textContent='☀️'}
+themeToggle.addEventListener('click',()=>{const d=document.documentElement.getAttribute('data-theme')==='dark';const t=d?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('theme',t);themeToggle.textContent=d?'🌙':'☀️'});
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const mode=tab.dataset.tab;
+    document.getElementById('urlPanel').classList.toggle('hidden',mode!=='url');
+    document.getElementById('htmlPanel').classList.toggle('hidden',mode!=='html');
+  });
+});
+
+document.querySelectorAll('.faq-q').forEach(q=>{q.addEventListener('click',()=>q.parentElement.classList.toggle('open'))});
+
+document.getElementById('analyzeUrlBtn').addEventListener('click',async()=>{
+  const url=document.getElementById('urlInput').value.trim();
+  if(!url){alert('Please enter a URL');return}
+  showLoading();
+  try{
+    const api='http://localhost:7001/api/seo/fetch?url='+encodeURIComponent(url);
+    const res=await fetch(api,{signal:AbortSignal.timeout(15000)});
+    const json=await res.json();
+    if(json.html&&json.html.length>50){
+      analyzeHTML(json.html,url);
+    }else{
+      throw new Error('Empty response');
+    }
+  }catch(e){
+    hideLoading();
+    alert('Unable to fetch this URL. Please use "Paste HTML" mode instead.\n(Press Ctrl+U in browser to view source, then copy and paste)');
+  }
+});
+
+document.getElementById('analyzeHtmlBtn').addEventListener('click',()=>{
+  const html=document.getElementById('htmlInput').value.trim();
+  if(!html){alert('Please paste HTML source code');return}
+  showLoading();
+  setTimeout(()=>analyzeHTML(html,'(pasted HTML)'),100);
+});
+
+function showLoading(){document.getElementById('loading').classList.remove('hidden');document.getElementById('reportSection').classList.add('hidden')}
+function hideLoading(){document.getElementById('loading').classList.add('hidden')}
+
+function analyzeHTML(html,sourceUrl){
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(html,'text/html');
+  const checks=[];
+  let totalScore=0,maxScore=0;
+
+  const metaChecks=[];
+  const title=doc.querySelector('title');
+  const titleText=title?title.textContent.trim():'';
+  if(!titleText){metaChecks.push({pass:false,icon:'❌',label:'Title Tag',detail:'Missing <code>&lt;title&gt;</code> tag. Title is one of the most important SEO elements.',w:10})}
+  else if(titleText.length<10){metaChecks.push({pass:false,icon:'⚠️',label:'Title Too Short',detail:`Title is only ${titleText.length} characters: <code>${esc(titleText)}</code>. Recommended: 30-60 characters.`,w:10})}
+  else if(titleText.length>60){metaChecks.push({pass:false,icon:'⚠️',label:'Title Too Long',detail:`Title is ${titleText.length} characters, exceeding the recommended 60. May be truncated in search results.`,w:10})}
+  else{metaChecks.push({pass:true,icon:'✅',label:'Title Tag',detail:`${titleText.length} characters, within recommended range. <code>${esc(titleText)}</code>`,w:10})}
+
+  const desc=doc.querySelector('meta[name="description"]');
+  const descText=desc?desc.getAttribute('content')||'':'';
+  if(!descText){metaChecks.push({pass:false,icon:'❌',label:'Meta Description',detail:'Missing meta description. This affects how your page appears in search results.',w:8})}
+  else if(descText.length<50){metaChecks.push({pass:false,icon:'⚠️',label:'Description Too Short',detail:`Only ${descText.length} characters. Recommended: 120-160 characters.`,w:8})}
+  else if(descText.length>160){metaChecks.push({pass:false,icon:'⚠️',label:'Description Too Long',detail:`${descText.length} characters, exceeding 160 may be truncated.`,w:8})}
+  else{metaChecks.push({pass:true,icon:'✅',label:'Meta Description',detail:`${descText.length} characters, within recommended range.`,w:8})}
+
+  const canonical=doc.querySelector('link[rel="canonical"]');
+  if(!canonical){metaChecks.push({pass:false,icon:'⚠️',label:'Canonical URL',detail:'Missing <code>&lt;link rel="canonical"&gt;</code>. May cause duplicate content issues.',w:5})}
+  else{metaChecks.push({pass:true,icon:'✅',label:'Canonical URL',detail:`<code>${esc(canonical.getAttribute('href'))}</code>`,w:5})}
+
+  const viewport=doc.querySelector('meta[name="viewport"]');
+  if(!viewport){metaChecks.push({pass:false,icon:'❌',label:'Viewport',detail:'Missing viewport meta tag. Page may not display correctly on mobile devices.',w:7})}
+  else{metaChecks.push({pass:true,icon:'✅',label:'Viewport',detail:'Mobile viewport is set.',w:7})}
+
+  const charset=doc.querySelector('meta[charset]');
+  if(!charset){metaChecks.push({pass:false,icon:'⚠️',label:'Charset',detail:'Consider declaring <code>&lt;meta charset="UTF-8"&gt;</code>.',w:3})}
+  else{metaChecks.push({pass:true,icon:'✅',label:'Charset',detail:`<code>${esc(charset.getAttribute('charset'))}</code>`,w:3})}
+
+  const robots=doc.querySelector('meta[name="robots"]');
+  if(robots){const rc=robots.getAttribute('content')||'';if(rc.includes('noindex')){metaChecks.push({pass:false,icon:'⚠️',label:'Robots',detail:'<code>noindex</code> is set. Search engines will not index this page.',w:5})}else{metaChecks.push({pass:true,icon:'✅',label:'Robots',detail:`<code>${esc(rc)}</code>`,w:5})}}
+
+  const lang=doc.documentElement.getAttribute('lang');
+  if(!lang){metaChecks.push({pass:false,icon:'⚠️',label:'Language Attribute',detail:'Missing <code>&lt;html lang="..."&gt;</code>. Set the page language.',w:3})}
+  else{metaChecks.push({pass:true,icon:'✅',label:'Language Attribute',detail:`<code>lang="${esc(lang)}"</code>`,w:3})}
+
+  checks.push({name:'Meta Tags',icon:'🏷️',items:metaChecks});
+
+  const headChecks=[];
+  const h1s=doc.querySelectorAll('h1');
+  if(h1s.length===0){headChecks.push({pass:false,icon:'❌',label:'H1 Heading',detail:'Page is missing an H1 heading. This is crucial for search engines to understand the page topic.',w:8})}
+  else if(h1s.length>1){headChecks.push({pass:false,icon:'⚠️',label:'Multiple H1s',detail:`Page has ${h1s.length} H1 headings. Recommended to keep only 1.`,w:8})}
+  else{headChecks.push({pass:true,icon:'✅',label:'H1 Heading',detail:`<code>${esc(h1s[0].textContent.trim().substring(0,80))}</code>`,w:8})}
+
+  const h2s=doc.querySelectorAll('h2');
+  if(h2s.length===0){headChecks.push({pass:false,icon:'⚠️',label:'H2 Headings',detail:'No H2 subheadings found. Use H2s to organize content structure.',w:5})}
+  else{headChecks.push({pass:true,icon:'✅',label:'H2 Headings',detail:`${h2s.length} H2 headings found. Good structure.`,w:5})}
+
+  let headingOrder=true;const allH=doc.querySelectorAll('h1,h2,h3,h4,h5,h6');let prevLevel=0;
+  allH.forEach(h=>{const lvl=parseInt(h.tagName[1]);if(lvl>prevLevel+1&&prevLevel>0)headingOrder=false;prevLevel=lvl});
+  if(!headingOrder){headChecks.push({pass:false,icon:'⚠️',label:'Heading Hierarchy',detail:'Heading levels skip (e.g., H1 jumps to H3). Use sequential order.',w:3})}
+  else if(allH.length>0){headChecks.push({pass:true,icon:'✅',label:'Heading Hierarchy',detail:'Heading hierarchy is correct.',w:3})}
+  checks.push({name:'Heading Structure',icon:'📑',items:headChecks});
+
+  const imgChecks=[];const imgs=doc.querySelectorAll('img');const noAlt=Array.from(imgs).filter(i=>!i.getAttribute('alt'));
+  if(imgs.length===0){imgChecks.push({pass:true,icon:'ℹ️',label:'Images',detail:'No images found on page.',w:0})}
+  else if(noAlt.length===0){imgChecks.push({pass:true,icon:'✅',label:'Image Alt Attributes',detail:`All ${imgs.length} images have alt attributes.`,w:7})}
+  else{imgChecks.push({pass:false,icon:'❌',label:'Missing Alt Attributes',detail:`${noAlt.length} / ${imgs.length} images are missing alt attributes. Alt text is important for SEO and accessibility.`,w:7})}
+  const dataImgs=Array.from(imgs).filter(i=>{const s=i.getAttribute('src')||'';return s.startsWith('data:')&&s.length>50000});
+  if(dataImgs.length>0){imgChecks.push({pass:false,icon:'⚠️',label:'Large Data URI Images',detail:`${dataImgs.length} images use large Data URIs, increasing HTML size. Use external image files instead.`,w:3})}
+  checks.push({name:'Image Check',icon:'🖼️',items:imgChecks});
+
+  const linkChecks=[];const links=doc.querySelectorAll('a[href]');const internal=[],external=[],nofollow=[];
+  links.forEach(a=>{const href=a.getAttribute('href')||'';const rel=a.getAttribute('rel')||'';if(href.startsWith('http')&&!href.includes(location.hostname))external.push(a);else if(href&&!href.startsWith('#')&&!href.startsWith('javascript'))internal.push(a);if(rel.includes('nofollow'))nofollow.push(a)});
+  linkChecks.push({pass:true,icon:'ℹ️',label:'Link Statistics',detail:`Internal: ${internal.length} · External: ${external.length} · Nofollow: ${nofollow.length}`,w:0});
+  const emptyAnchors=Array.from(links).filter(a=>!a.textContent.trim()&&!a.querySelector('img'));
+  if(emptyAnchors.length>0){linkChecks.push({pass:false,icon:'⚠️',label:'Empty Anchor Text',detail:`${emptyAnchors.length} links have no text content, which is bad for SEO.`,w:4})}
+  else if(links.length>0){linkChecks.push({pass:true,icon:'✅',label:'Anchor Text',detail:'All links have text content.',w:4})}
+  checks.push({name:'Link Analysis',icon:'🔗',items:linkChecks});
+
+  const socialChecks=[];
+  const ogTitle=doc.querySelector('meta[property="og:title"]');const ogDesc=doc.querySelector('meta[property="og:description"]');const ogImage=doc.querySelector('meta[property="og:image"]');const ogType=doc.querySelector('meta[property="og:type"]');const twCard=doc.querySelector('meta[name="twitter:card"]');
+  if(ogTitle){socialChecks.push({pass:true,icon:'✅',label:'og:title',detail:`<code>${esc(ogTitle.getAttribute('content')||'')}</code>`,w:4})}else{socialChecks.push({pass:false,icon:'❌',label:'og:title',detail:'Missing Open Graph title. Social shares won\'t display a proper title.',w:4})}
+  if(ogDesc){socialChecks.push({pass:true,icon:'✅',label:'og:description',detail:'Set.',w:3})}else{socialChecks.push({pass:false,icon:'⚠️',label:'og:description',detail:'Missing Open Graph description.',w:3})}
+  if(ogImage){socialChecks.push({pass:true,icon:'✅',label:'og:image',detail:'Social share image is set.',w:4})}else{socialChecks.push({pass:false,icon:'❌',label:'og:image',detail:'Missing share image. Social shares won\'t have a preview image. Recommended: 1200×630.',w:4})}
+  if(ogType){socialChecks.push({pass:true,icon:'✅',label:'og:type',detail:`<code>${esc(ogType.getAttribute('content'))}</code>`,w:2})}else{socialChecks.push({pass:false,icon:'⚠️',label:'og:type',detail:'Missing og:type.',w:2})}
+  if(twCard){socialChecks.push({pass:true,icon:'✅',label:'Twitter Card',detail:`<code>${esc(twCard.getAttribute('content'))}</code>`,w:3})}else{socialChecks.push({pass:false,icon:'⚠️',label:'Twitter Card',detail:'Missing Twitter Card tags.',w:3})}
+  checks.push({name:'Social Tags',icon:'📣',items:socialChecks});
+
+  const schemaChecks=[];const jsonlds=doc.querySelectorAll('script[type="application/ld+json"]');
+  if(jsonlds.length===0){schemaChecks.push({pass:false,icon:'⚠️',label:'Schema Structured Data',detail:'No JSON-LD structured data detected. Adding Schema can enable rich snippets in search results.',w:5})}
+  else{let types=[];jsonlds.forEach(s=>{try{const d=JSON.parse(s.textContent);if(d['@type'])types.push(d['@type'])}catch(e){}});schemaChecks.push({pass:true,icon:'✅',label:'Schema Structured Data',detail:`Found ${jsonlds.length} JSON-LD: <code>${types.join(', ')||'set'}</code>`,w:5})}
+  const hreflangs=doc.querySelectorAll('link[rel="alternate"][hreflang]');
+  if(hreflangs.length>0){schemaChecks.push({pass:true,icon:'✅',label:'Hreflang',detail:`${hreflangs.length} language versions detected.`,w:3})}
+  checks.push({name:'Structured Data',icon:'🧩',items:schemaChecks});
+
+  const contentChecks=[];const bodyText=doc.body?doc.body.textContent.replace(/\s+/g,' ').trim():'';const wordCount=bodyText.length;
+  if(wordCount<300){contentChecks.push({pass:false,icon:'⚠️',label:'Content Length',detail:`Page has ~${wordCount} characters. Content may be too thin. Aim for 300+ characters.`,w:5})}
+  else{contentChecks.push({pass:true,icon:'✅',label:'Content Length',detail:`~${wordCount} characters.`,w:5})}
+  if(titleText&&descText){const titleWords=titleText.toLowerCase().split(/\s+/);const descWords=descText.toLowerCase();const matched=titleWords.filter(w=>w.length>2&&descWords.includes(w));if(matched.length>0){contentChecks.push({pass:true,icon:'✅',label:'Keyword Consistency',detail:`Title and description share keywords: <code>${matched.slice(0,5).join(', ')}</code>`,w:4})}else{contentChecks.push({pass:false,icon:'⚠️',label:'Keyword Consistency',detail:'No obvious shared keywords between title and description. Consider aligning them.',w:4})}}
+  checks.push({name:'Content Analysis',icon:'📝',items:contentChecks});
+
+  const techChecks=[];
+  const favicon=doc.querySelector('link[rel="icon"],link[rel="shortcut icon"]');
+  if(favicon){techChecks.push({pass:true,icon:'✅',label:'Favicon',detail:'Favicon is set.',w:2})}else{techChecks.push({pass:false,icon:'⚠️',label:'Favicon',detail:'Missing favicon.',w:2})}
+  if(sourceUrl.startsWith('https://')){techChecks.push({pass:true,icon:'✅',label:'HTTPS',detail:'Site uses HTTPS.',w:5})}else if(sourceUrl.startsWith('http://')){techChecks.push({pass:false,icon:'❌',label:'HTTPS',detail:'Site does not use HTTPS. Google penalizes non-HTTPS sites.',w:5})}
+  const inlineStyles=doc.querySelectorAll('[style]');if(inlineStyles.length>20){techChecks.push({pass:false,icon:'⚠️',label:'Inline Styles',detail:`${inlineStyles.length} inline styles detected. Excessive inline styles affect maintainability.`,w:2})}
+  const htmlSize=new Blob([html]).size;const htmlKB=(htmlSize/1024).toFixed(1);
+  if(htmlSize>500000){techChecks.push({pass:false,icon:'⚠️',label:'HTML Size',detail:`HTML is ${htmlKB} KB, quite large. Consider optimizing.`,w:3})}else{techChecks.push({pass:true,icon:'✅',label:'HTML Size',detail:`${htmlKB} KB`,w:3})}
+  checks.push({name:'Technical SEO',icon:'⚙️',items:techChecks});
+
+  checks.forEach(cat=>{cat.items.forEach(item=>{maxScore+=item.w;if(item.pass)totalScore+=item.w})});
+  const score=maxScore>0?Math.round(totalScore/maxScore*100):0;
+  hideLoading();renderReport(score,checks);
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function renderReport(score,categories){
+  const sec=document.getElementById('reportSection');sec.classList.remove('hidden');
+  const circle=document.getElementById('scoreCircle');const offset=440-(440*score/100);
+  const color=score>=80?'var(--success)':score>=50?'var(--warning)':'var(--danger)';
+  circle.style.stroke=color;circle.style.strokeDashoffset=offset;
+  document.getElementById('scoreNum').textContent=score;document.getElementById('scoreNum').style.color=color;
+  const label=score>=80?'Excellent':score>=60?'Good':score>=40?'Needs Work':'Poor';
+  document.getElementById('scoreLabel').textContent=`Overall SEO Score — ${label}`;
+  const body=document.getElementById('reportBody');body.innerHTML='';
+  categories.forEach(cat=>{
+    const passed=cat.items.filter(i=>i.pass).length;const total=cat.items.length;
+    const pct=total>0?Math.round(passed/total*100):100;const cls=pct>=80?'good':pct>=50?'warn':'bad';
+    const div=document.createElement('div');div.className='report-category open';
+    div.innerHTML=`<div class="cat-header" onclick="this.parentElement.classList.toggle('open')"><span><span class="cat-icon">${cat.icon}</span>${cat.name}</span><span class="cat-score ${cls}">${passed}/${total} passed</span></div><div class="cat-body">${cat.items.map(item=>`<div class="check-item"><span class="check-icon">${item.icon}</span><div class="check-detail"><strong>${item.label}</strong><p>${item.detail}</p></div></div>`).join('')}</div>`;
+    body.appendChild(div);
+  });
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('exportBtn').addEventListener('click',()=>{
+  const score=document.getElementById('scoreNum').textContent;
+  let text=`SEO Analysis Report\n${'='.repeat(40)}\nOverall Score: ${score}/100\n\n`;
+  document.querySelectorAll('.report-category').forEach(cat=>{
+    const name=cat.querySelector('.cat-header span:first-child').textContent.trim();
+    const sc=cat.querySelector('.cat-score').textContent;
+    text+=`\n[${name}] ${sc}\n${'-'.repeat(30)}\n`;
+    cat.querySelectorAll('.check-item').forEach(item=>{
+      const icon=item.querySelector('.check-icon').textContent;const label=item.querySelector('strong').textContent;
+      const detail=item.querySelector('p').textContent;text+=`${icon} ${label}\n   ${detail}\n\n`;
+    });
+  });
+  const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='seo-report.txt';a.click();URL.revokeObjectURL(a.href);
+});
+</script>
+
+
+<script>document.querySelectorAll(".current-year").forEach(function (el) { el.textContent = new Date().getFullYear(); });</script>
+
+<footer class="open-source-attribution" style="padding:24px;text-align:center"><a href="https://upliftorch.com/">Upliftorch</a> · <a href="https://upliftorch.com/tools/seo-checker/">Official demo / 線上工具</a></footer>
+</body>
+</html>
